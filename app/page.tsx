@@ -1,25 +1,39 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans antialiased">
       {/* Navigation */}
       <header className="sticky top-0 z-50 border-b border-card-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="/" className="text-lg font-semibold tracking-tight text-foreground">
+          <Link href="/" className="text-lg font-semibold tracking-tight text-foreground">
             Community Emergency Fund
-          </a>
-          <div className="flex items-center gap-6">
-            <a
+          </Link>
+          <div className="flex items-center gap-4 sm:gap-6">
+            <Link
+              href="/contribute"
+              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+            >
+              Contribute
+            </Link>
+            <Link
+              href="/impact"
+              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+            >
+              Impact
+            </Link>
+            <Link
               href="#how-it-works"
               className="text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
               How it works
-            </a>
-            <a
-              href="#get-started"
+            </Link>
+            <Link
+              href="/contribute"
               className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
             >
               Get started
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
@@ -42,18 +56,24 @@ export default function Home() {
               Payments.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <a
-                href="#get-started"
+              <Link
+                href="/contribute"
                 className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover"
               >
-                Build your fund
-              </a>
-              <a
+                Contribute to the fund
+              </Link>
+              <Link
+                href="/claim"
+                className="inline-flex items-center justify-center rounded-full border border-card-border bg-card px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-foreground/5"
+              >
+                Receive aid (demo)
+              </Link>
+              <Link
                 href="#how-it-works"
                 className="inline-flex items-center justify-center rounded-full border border-card-border bg-card px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-foreground/5"
               >
                 See how it works
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -190,18 +210,38 @@ export default function Home() {
         <section id="get-started" className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl rounded-3xl border border-card-border bg-card p-8 text-center shadow-lg sm:p-12">
             <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">
-              Ready to build your community fund?
+              Ready to get started?
             </h2>
             <p className="mt-4 text-muted">
-              Design a programmable emergency fund that collects micro-contributions and disburses
-              aid automatically when disasters strike.
+              Contribute to the fund, see how recipients receive aid, or try the community lead
+              vouchers.
             </p>
-            <a
-              href="#"
-              className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-8 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover"
-            >
-              Get started
-            </a>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/contribute"
+                className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-base font-medium text-white transition-colors hover:bg-accent-hover"
+              >
+                Contribute
+              </Link>
+              <Link
+                href="/claim"
+                className="inline-flex items-center justify-center rounded-full border border-card-border bg-card px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-foreground/5"
+              >
+                Receive aid
+              </Link>
+              <Link
+                href="/impact"
+                className="inline-flex items-center justify-center rounded-full border border-card-border bg-card px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-foreground/5"
+              >
+                See impact
+              </Link>
+              <Link
+                href="/lead/vouchers"
+                className="inline-flex items-center justify-center rounded-full border border-card-border bg-card px-6 py-3 text-base font-medium text-foreground transition-colors hover:bg-foreground/5"
+              >
+                Lead vouchers
+              </Link>
+            </div>
           </div>
         </section>
       </main>
@@ -212,14 +252,34 @@ export default function Home() {
           <p className="text-sm text-muted">
             Community Emergency Fund · Interledger Foundation 2026 Challenge
           </p>
-          <a
-            href="https://interledger.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-accent hover:text-accent-hover"
-          >
-            interledger.org
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <Link
+              href="/contribute"
+              className="text-sm font-medium text-accent hover:text-accent-hover"
+            >
+              Contribute
+            </Link>
+            <Link
+              href="/impact"
+              className="text-sm font-medium text-accent hover:text-accent-hover"
+            >
+              Impact
+            </Link>
+            <Link
+              href="/lead/vouchers"
+              className="text-sm font-medium text-accent hover:text-accent-hover"
+            >
+              Lead vouchers
+            </Link>
+            <a
+              href="https://interledger.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-accent hover:text-accent-hover"
+            >
+              interledger.org
+            </a>
+          </div>
         </div>
       </footer>
     </div>
