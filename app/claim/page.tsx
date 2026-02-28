@@ -4,10 +4,37 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+const recipientOptions = [
+  {
+    id: "PH",
+    label: "Philippines",
+    currency: "PHP",
+    symbol: "₱",
+    amount: "7,500.00",
+  },
+  {
+    id: "MY",
+    label: "Malaysia",
+    currency: "MYR",
+    symbol: "RM",
+    amount: "1,200.00",
+  },
+  {
+    id: "ID",
+    label: "Indonesia",
+    currency: "IDR",
+    symbol: "Rp",
+    amount: "2,300,000",
+  },
+] as const;
+
+type RecipientId = (typeof recipientOptions)[number]["id"];
+
 export default function ClaimPage() {
   const searchParams = useSearchParams();
   const voucherId = searchParams.get("voucher");
   const [status, setStatus] = useState<"idle" | "confirming" | "success" | "error">("idle");
+  const [recipient, setRecipient] = useState<RecipientId>("PH");
 
   const handleConfirmWithDevice = async () => {
     setStatus("confirming");
@@ -15,6 +42,9 @@ export default function ClaimPage() {
     await new Promise((r) => setTimeout(r, 1200));
     setStatus("success");
   };
+
+  const selected =
+    recipientOptions.find((option) => option.id === recipient) ?? recipientOptions[0];
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans antialiased">
@@ -38,11 +68,46 @@ export default function ClaimPage() {
             Aid is ready for you
           </h1>
           <p className="mt-2 text-muted">
-            Your community fund has released emergency support for your household.
+            Your community fund has released emergency support for your household. Payouts are made
+            in your local currency.
           </p>
-          <div className="mt-6 rounded-lg bg-background/80 p-4">
-            <p className="text-sm text-muted">Amount</p>
-            <p className="text-2xl font-semibold text-foreground">$150.00 USD</p>
+
+          <div className="mt-6 space-y-4">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wider text-accent">
+                Where are you receiving this aid?
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {recipientOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    onClick={() => setRecipient(option.id)}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                      recipient === option.id
+                        ? "border-accent bg-accent text-white"
+                        : "border-card-border bg-background text-foreground hover:bg-foreground/5"
+                    }`}
+                  >
+                    {option.label} ({option.currency})
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-background/80 p-4">
+              <p className="text-sm text-muted">
+                Amount ({selected.currency}) — converted from donor contributions in USD, EUR, and
+                SGD
+              </p>
+              <p className="mt-2 text-2xl font-semibold text-foreground">
+                <span className="mr-1">{selected.symbol}</span>
+                {selected.amount}
+                <span className="ml-1 text-base font-normal text-muted">
+                  {selected.currency}
+                </span>
+              </p>
+            </div>
           </div>
 
           {status === "idle" && (
@@ -78,7 +143,8 @@ export default function ClaimPage() {
             <div className="mt-6 rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30">
               <p className="font-medium text-green-800 dark:text-green-200">Payment sent</p>
               <p className="mt-1 text-sm text-green-700 dark:text-green-300">
-                The amount has been sent to your wallet. You can use it right away.
+                The amount has been sent to your wallet in {selected.currency}. You can use it right
+                away.
               </p>
               <Link
                 href="/"

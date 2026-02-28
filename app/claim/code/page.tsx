@@ -35,7 +35,9 @@ export default function ClaimCodePage() {
             Enter your code
           </h1>
           <p className="mt-2 text-muted">
-            We sent you a code by SMS or voice call. Enter it below to receive your aid.
+            We sent you a code by SMS or voice call. Enter it below to receive your aid in your
+            local currency (for example, Philippine pesos, Malaysian ringgit, or Indonesian
+            rupiah).
           </p>
 
           {status === "idle" || status === "submitting" ? (
